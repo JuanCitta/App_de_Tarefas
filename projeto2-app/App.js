@@ -11,6 +11,7 @@ class TelaInicial extends Component {
     super(props);
     this.state = {
       atividades: [],
+      contadorAtividades : 0,
     };
   }
   componentDidMount() {
@@ -31,12 +32,16 @@ class TelaInicial extends Component {
     return (
       <View style={estilos.container}>
         <Text style={estilos.titulo}>Jornal de Tarefas</Text>
+        <Image source={require('./assets/Diario2.png')} style={{ width: 200, height: 200, marginTop: 20, }}/>
         <Text style={{ marginVertical: 20, fontSize: 18 }}>Atividades pendentes: {this.state.contadorAtividades}</Text>
         <TouchableOpacity style={estilos.botao} onPress={() => navega('Adicionar Atividade')}>
           <Text style={estilos.txtbotao}>Adicionar Atividade</Text>
         </TouchableOpacity>
         <TouchableOpacity style={estilos.botao} onPress={() => navega('Jornal de Atividades')}>
           <Text style={estilos.txtbotao}>Ver Jornal</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={estilos.botao} onPress={() => navega('Sobre')}>
+          <Text style={estilos.txtbotao}>Sobre</Text>
         </TouchableOpacity>
       </View>
     );
@@ -143,6 +148,24 @@ class HistoricoAtividadesTela extends Component {
   }
 }
 
+class SobreTela extends Component {
+  render() {
+    return (
+      <View style={estilos.container}>
+        <Text style={{ fontSize: 24 }}>Sobre o Programa</Text>
+        <Text style={{ fontSize: 18, marginTop: 20 }}> App de tarefas para:</Text>
+        <Text style={{ fontSize: 18, marginTop: 20 }}> CC4670 - Computação Móvel</Text>
+        <Text style={{ fontSize: 18, marginTop: 20 }}>Desenvolvido por: Juan Manuel Citta</Text>
+        <Text style={{ fontSize: 18, marginTop: 20 }}>RA: 24.123.022-6</Text>
+          <View style = {estilos.imagemsobre}>
+          <Image source={require('./assets/FEI_logo_2015.png')} style={{ width: 100, height: 100, marginHorizontal: 10, }} resizeMode = "contain"/>
+          <Image source={require('./assets/React.png')} style={{ width: 100, height: 100, marginHorizontal: 10, }} resizeMode = "contain" />
+          <Image source={require('./assets/Arduino_Logo.svg')} style={{ width: 100, height: 100 , marginHorizontal: 10,}} resizeMode = "contain" />
+          </View>
+      </View>
+    );
+  }
+}
 
 export default function App() {
   return (
@@ -151,6 +174,7 @@ export default function App() {
         <Stack.Screen name="Tela Inicial" component={TelaInicial} options = {{headerShown:false}} />
         <Stack.Screen name="Adicionar Atividade" component={AdicionarAtividadeTela}/>
         <Stack.Screen name="Jornal de Atividades" component={HistoricoAtividadesTela} />
+        <Stack.Screen name="Sobre" component={SobreTela} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -196,5 +220,11 @@ const estilos = StyleSheet.create({
     borderColor: 'black',
     width: '80%',
     backgroundColor: 'white',
-  }
+  },
+  imagemsobre: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+  },
 });
