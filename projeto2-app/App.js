@@ -100,6 +100,15 @@ class HistoricoAtividadesTela extends Component {
   componentDidMount() {
     this.carregarAtividades();
   }
+  
+  excluirAtividade = async (index) => {
+    const { atividades } = this.state;
+    const atividadesAtualizadas = atividades.filter((atividade, i) => i !== index);
+
+    this.setState({ atividades: atividadesAtualizadas });
+    await AsyncStorage.setItem('atividades', atividadesAtualizadas.join('|'));
+    Vibration.vibrate(1000);
+  };
 
   carregarAtividades = async () => {
     const dadosArmazenados = await AsyncStorage.getItem('atividades');
@@ -115,7 +124,9 @@ class HistoricoAtividadesTela extends Component {
           <View key={index} style={estilos.atividadecontainer}>
             <Text style={{fontWeight: 'bold'}}>{atividade.split(' - ')[0]} </Text>
             <Text style={{fontSize: 14}}>{atividade.split(' - ')[1]} </Text>
-            
+            <TouchableOpacity onPress={() => this.excluirAtividade(index)}>
+              <Text style={{ color: 'red' }}>Excluir</Text>
+            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
@@ -141,6 +152,7 @@ const estilos = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'beige',
   },
   titulo: {
     fontSize: 26,
