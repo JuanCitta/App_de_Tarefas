@@ -13,22 +13,31 @@ class TelaInicial extends Component {
       atividades: [],
     };
   }
+  componentDidMount() {
+    this.carregarAtividades();
 
-  
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.carregarAtividades();
+    });
+  }
 
+  carregarAtividades = async () => {
+    const dadosArmazenados = await AsyncStorage.getItem('atividades');
+    const atividades = dadosArmazenados ? dadosArmazenados.split('|') : [];
+    this.setState({ atividades, contadorAtividades: atividades.length });
+  };
   render() {
     const navega = this.props.navigation.navigate;
     return (
       <View style={estilos.container}>
         <Text style={estilos.titulo}>Jornal de Tarefas</Text>
-        
+        <Text style={{ marginVertical: 20, fontSize: 18 }}>Atividades pendentes: {this.state.contadorAtividades}</Text>
         <TouchableOpacity style={estilos.botao} onPress={() => navega('Adicionar Atividade')}>
           <Text style={estilos.txtbotao}>Adicionar Atividade</Text>
         </TouchableOpacity>
         <TouchableOpacity style={estilos.botao} onPress={() => navega('Jornal de Atividades')}>
           <Text style={estilos.txtbotao}>Ver Jornal</Text>
         </TouchableOpacity>
-        
       </View>
     );
   }
