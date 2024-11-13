@@ -9,23 +9,28 @@ Na mesma tela o usuário pode excluir a atividade, caso já a tenha completado.
 **Funcionamento**
 O aplicativo tem a seguinte tela principal:
 
-![image](https://github.com/user-attachments/assets/5b1d9559-cee6-48eb-9dd8-2d1b40b867dc)
+![image](https://github.com/user-attachments/assets/6b983a16-293c-4bfe-b0c5-f7a1a2a95efa)
+
 
 Na tela "Adicionar Atividade", existem dois Inputs de texto, que o usuário deve preencher:
 
-![image](https://github.com/user-attachments/assets/e0621c03-f24e-4048-9ca7-10e09eb356e3)
+![image](https://github.com/user-attachments/assets/b1854f20-ffff-4f50-a68b-4509f44ca25f)
+
 
 Ao clickar no botão "Salvar Atividade", a atividade será salva e o texto na Tela Principal será atualizado:
 
-![image](https://github.com/user-attachments/assets/ccf3f67c-39a9-4299-ae3b-b27b201200c3)
+![image](https://github.com/user-attachments/assets/49e4bcaf-aac9-414f-9338-375d713f3156)
+
 
 Na tela "Ver Jornal", todas as atividades que o usuário ingressou estarão disponiveis:
 
-![image](https://github.com/user-attachments/assets/7f3a47ee-62d6-4867-9ae5-ec4b1499cc15)
+![image](https://github.com/user-attachments/assets/b62dc3a1-62e3-4e26-a076-4ffa052f2383)
+
 
 Clickando no botão "Excluir" a tela principal será atualizada novamente:
 
-![image](https://github.com/user-attachments/assets/132a1f70-931c-41fd-9ac8-c4cc79822a19)
+![image](https://github.com/user-attachments/assets/65822988-f243-4a3d-9555-a9ac6812b4ef)
+
 
 
 **Motivação**
