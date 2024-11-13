@@ -4,29 +4,35 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+// Criando o stack para navegar pelo app
 const Stack = createStackNavigator();
 
+// Tela inicial que exibe as opcoes principais e conta as atividades pendentes
 class TelaInicial extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      atividades: [],
-      contadorAtividades : 0,
+      atividades: [], 
+      contadorAtividades : 0, 
     };
   }
+
   componentDidMount() {
     this.carregarAtividades();
 
+    // Listener que carrega as atividades quando o usuario volta para a tela inicial
     this.focusListener = this.props.navigation.addListener('focus', () => {
       this.carregarAtividades();
     });
   }
 
+  // Carrega as atividades salvas no Asyncstorage
   carregarAtividades = async () => {
     const dadosArmazenados = await AsyncStorage.getItem('atividades');
     const atividades = dadosArmazenados ? dadosArmazenados.split('|') : [];
     this.setState({ atividades, contadorAtividades: atividades.length });
   };
+
   render() {
     const navega = this.props.navigation.navigate;
     return (
@@ -48,33 +54,36 @@ class TelaInicial extends Component {
   }
 }
 
+// Tela para adicionar uma nova atividade, com campos para descricao e data
 class AdicionarAtividadeTela extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textoAtividade: '',
-      dataAtividade: '',
+      textoAtividade: '', 
+      dataAtividade: '',  
       ativiades : []
     };
   }
   
+  // Funcao para salvar uma nova atividade e  vibra como confirmacao
   salvarAtividade = async () => {
     const textoAtividade = this.state.textoAtividade;
     const dataAtividade = this.state.dataAtividade;
 
-
+    // Validacao para garantir que todos os campos sejam preenchidos
     if (!textoAtividade || !dataAtividade) {
       alert('Preencha todos os campos');
       return;
     }
 
+    // Cria uma nova atividade e atualiza no Asyncstorage e vibra como confirmacao
     const novaAtv = `${textoAtividade} - ${dataAtividade}`;
     const dados = await AsyncStorage.getItem('atividades');
     const atividades = dados ? dados.split('|') : [];
     const novoatividades = [...atividades, novaAtv];
     await AsyncStorage.setItem('atividades', novoatividades.join('|'))
 
-    Vibration.vibrate(1000);
+    Vibration.vibrate(1000); 
     this.setState({ textoAtividade: '', dataAtividade: '' });
     this.props.navigation.navigate('Tela Inicial');
   };
@@ -103,6 +112,7 @@ class AdicionarAtividadeTela extends Component {
   }
 }
 
+// Tela que exibe o historico de atividades com opcao de excluir cada uma
 class HistoricoAtividadesTela extends Component {
   constructor(props) {
     super(props);
@@ -115,6 +125,14 @@ class HistoricoAtividadesTela extends Component {
     this.carregarAtividades();
   }
   
+  // Carrega as atividades salvas no Asyncstorage
+  carregarAtividades = async () => {
+    const dadosArmazenados = await AsyncStorage.getItem('atividades');
+    const atividades = dadosArmazenados ? dadosArmazenados.split('|') : [];
+    this.setState({ atividades });
+  };
+
+  // Exclui uma atividade especifica e atualiza o AsyncStorage e depois vibra como confirmacao
   excluirAtividade = async (index) => {
     const { atividades } = this.state;
     const atividadesAtualizadas = atividades.filter((atividade, i) => i !== index);
@@ -124,16 +142,10 @@ class HistoricoAtividadesTela extends Component {
     Vibration.vibrate(1000);
   };
 
-  carregarAtividades = async () => {
-    const dadosArmazenados = await AsyncStorage.getItem('atividades');
-    const atividades = dadosArmazenados ? dadosArmazenados.split('|') : [];
-    this.setState({ atividades });
-  };
-
   render() {
     return (
       <ScrollView style={estilos.container}>
-        <Text style={{ fontSize: 24 }}>Histórico de Atividades</Text>
+        <Text style={{ fontSize: 24 }}>Historico de Atividades</Text>
         {this.state.atividades.map((atividade, index) => (
           <View key={index} style={estilos.atividadecontainer}>
             <Text style={{fontWeight: 'bold'}}>{atividade.split(' - ')[0]} </Text>
@@ -148,13 +160,14 @@ class HistoricoAtividadesTela extends Component {
   }
 }
 
+// Tela "Sobre" que exibe informacoes sobre o programa e mim
 class SobreTela extends Component {
   render() {
     return (
       <View style={estilos.container}>
         <Text style={{ fontSize: 24 }}>Sobre o Programa</Text>
         <Text style={{ fontSize: 18, marginTop: 20 }}> App de tarefas para:</Text>
-        <Text style={{ fontSize: 18, marginTop: 20 }}> CC4670 - Computação Móvel</Text>
+        <Text style={{ fontSize: 18, marginTop: 20 }}> CC4670 - Computacao Movel</Text>
         <Text style={{ fontSize: 18, marginTop: 20 }}>Desenvolvido por: Juan Manuel Citta</Text>
         <Text style={{ fontSize: 18, marginTop: 20 }}>RA: 24.123.022-6</Text>
           <View style = {estilos.imagemsobre}>
@@ -167,6 +180,7 @@ class SobreTela extends Component {
   }
 }
 
+// Componente App que define o stack
 export default function App() {
   return (
     <NavigationContainer>
@@ -180,6 +194,7 @@ export default function App() {
   );
 }
 
+// Estilos usados na aplicacao 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
@@ -214,17 +229,15 @@ const estilos = StyleSheet.create({
   },
   atividadecontainer: {
     marginVertical: 10,
+    backgroundColor: 'lightgreen',
     padding: 10,
-    borderWidth: 1,
     borderRadius: 5,
-    borderColor: 'black',
-    width: '80%',
-    backgroundColor: 'white',
+    width: '95%',
   },
-  imagemsobre: {
+
+  imagemsobre:{
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-  },
+    justifyContent:'center',
+    marginTop: 20,
+  }
 });
