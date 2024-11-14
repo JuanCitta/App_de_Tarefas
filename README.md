@@ -1,6 +1,12 @@
 # App_de_Tarefas
 Aplicativo simples para registro de tarefas em React
 
+**Link**
+
+Vídeo apresentando: 
+
+https://youtu.be/DDd8HW-H_RM
+
 **Função do Projeto**
 
 O app desenvolvido serve para poder registrar as tarefas que o usuário tem de fazer. Uma das telas do aplicativo permite o usuário ver todas as atividades que estão registradas.
