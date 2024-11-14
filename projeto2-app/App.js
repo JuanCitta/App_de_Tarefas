@@ -229,9 +229,10 @@ const estilos = StyleSheet.create({
   },
   atividadecontainer: {
     marginVertical: 10,
-    backgroundColor: 'lightgreen',
+    backgroundColor: 'white',
     padding: 10,
-    borderRadius: 5,
+    borderColor: 'black',
+    borderWidth: 2,
     width: '95%',
   },
 
